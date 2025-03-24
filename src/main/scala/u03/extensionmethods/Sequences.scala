@@ -34,9 +34,15 @@ object Sequences:
         case Cons(h, t) => Cons(h, t.concat(other))
         case Nil()      => other
 
+      def contains(element: A): Boolean = containsElement(element, l)
 
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))
+
+    def containsElement[A](element: A, sequence: Sequence[A]): Boolean = sequence match
+      case Cons(h, t) if h == element => true
+      case Cons(_, t) =>containsElement(element, t)
+      case Nil() => false
 
 @main def trySequences() =
   import Sequences.*
