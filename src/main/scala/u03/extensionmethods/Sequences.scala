@@ -1,5 +1,7 @@
 package u03.extensionmethods
 
+import scala.annotation.tailrec
+
 object Sequences:
   
   enum Sequence[E]:
@@ -36,6 +38,8 @@ object Sequences:
 
       def contains(element: A): Boolean = containsElement(element, l)
 
+      def distinct() : Sequence[A] = distinctElements(l)
+
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))
 
@@ -43,6 +47,14 @@ object Sequences:
       case Cons(h, t) if h == element => true
       case Cons(_, t) =>containsElement(element, t)
       case Nil() => false
+
+    def distinctElements[A](seq: Sequence[A]): Sequence[A] =
+      @tailrec
+      def _distinct[B](seq: Sequence[B], newSeq: Sequence[B]): Sequence[B] = seq match
+        case Nil() => newSeq
+        case Cons(h, t) if !t.contains(h) => _distinct(t, newSeq.concat(Cons(h, Nil())))
+        case Cons(h, t) => _distinct(t, newSeq)
+      _distinct(seq, Nil())
 
 @main def trySequences() =
   import Sequences.*

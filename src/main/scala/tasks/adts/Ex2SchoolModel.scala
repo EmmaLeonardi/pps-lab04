@@ -1,4 +1,5 @@
 package tasks.adts
+import u02.Modules.Person.Teacher
 import u03.extensionmethods.Optionals.*
 import u03.extensionmethods.Sequences.*
 import u03.extensionmethods.Sequences.Sequence.{Cons, Nil}
@@ -123,8 +124,8 @@ object SchoolModel:
     def emptySchool: School = Nil()
 
     extension (school: School)
-      def courses: Sequence[String] = school.map((t, c) => c).filter(c => c != "")
-      def teachers: Sequence[String] = school.map((t, c) => t).filter(t => t != "")
+      def courses: Sequence[String] = school.map((t, c) => c).filter(c => c != "").distinct()
+      def teachers: Sequence[String] = school.map((t, c) => t).filter(t => t != "").distinct()
       def setTeacherToCourse(teacher: Teacher, course: Course): School = school.concat(Cons((teacher,course), Nil()))
 
       def coursesOfATeacher(teacher: Teacher): Sequence[Course] = school.filter((t,c)=>t==t).map((t,c)=>c)
@@ -147,11 +148,17 @@ object SchoolModel:
   println(school2.hasCourse("Math")) // true
   println(school2.hasCourse("Italian")) // false
   val school3 = school2.setTeacherToCourse(john, italian)
-  println(school3.teachers) // Cons("John", Nil()) //TODO: rimuovi duplicati
+  println(school3.teachers) // Cons("John", Nil())
   println(school3.courses) // Cons("Math", Cons("Italian", Nil()))
   println(school3.hasTeacher("John")) // true
   println(school3.hasCourse("Math")) // true
   println(school3.hasCourse("Italian")) // true
   println(school3.coursesOfATeacher(john)) // Cons("Math", Cons("Italian", Nil()))
+  val school4 = emptySchool.setTeacherToCourse(john, math).setTeacherToCourse(teacher("Mario"), course("oop")).setTeacherToCourse(john, italian)
+  println(school4.teachers) // Cons("John", Nil())
+  println(school4.courses) // Cons("Math", Nil())
+  println(school4.hasTeacher("Mario")) // true
+  println(school4.hasCourse("oop")) // true
+
 
 
