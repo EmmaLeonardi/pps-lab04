@@ -125,7 +125,7 @@ object SchoolModel:
     extension (school: School)
       def courses: Sequence[String] = school.map((t, c) => c).filter(c => c != "")
       def teachers: Sequence[String] = school.map((t, c) => t).filter(t => t != "")
-      def setTeacherToCourse(teacher: Teacher, course: Course): School = Cons((teacher,course), school)
+      def setTeacherToCourse(teacher: Teacher, course: Course): School = school.concat(Cons((teacher,course), Nil()))
 
       def coursesOfATeacher(teacher: Teacher): Sequence[Course] = school.filter((t,c)=>t==t).map((t,c)=>c)
       def hasTeacher(name: String): Boolean = school.map((t, c) => t).contains(name)
@@ -152,6 +152,6 @@ object SchoolModel:
   println(school3.hasTeacher("John")) // true
   println(school3.hasCourse("Math")) // true
   println(school3.hasCourse("Italian")) // true
-  println(school3.coursesOfATeacher(john)) // Cons("Math", Cons("Italian", Nil())) //TODO: mantieni ordine
+  println(school3.coursesOfATeacher(john)) // Cons("Math", Cons("Italian", Nil()))
 
 
