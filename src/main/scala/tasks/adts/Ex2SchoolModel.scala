@@ -154,9 +154,9 @@ object SchoolModel:
   println(school3.hasCourse("Math")) // true
   println(school3.hasCourse("Italian")) // true
   println(school3.coursesOfATeacher(john)) // Cons("Math", Cons("Italian", Nil()))
-  val school4 = emptySchool.setTeacherToCourse(john, math).setTeacherToCourse(teacher("Mario"), course("oop")).setTeacherToCourse(john, italian)
-  println(school4.teachers) // Cons("John", Nil())
-  println(school4.courses) // Cons("Math", Nil())
+  val school4 = emptySchool.setTeacherToCourse(john, math).setTeacherToCourse(teacher("Mario"), course("OOP")).setTeacherToCourse(john, italian)
+  println(school4.teachers) // Cons("John",Cons("Mario", Nil()))
+  println(school4.courses) // Cons("Math", Cons("OOP", Cons("Italian", Nil())))
   println(school4.hasTeacher("Mario")) // true
   println(school4.hasCourse("oop")) // true
 

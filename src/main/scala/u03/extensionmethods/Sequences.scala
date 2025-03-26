@@ -52,7 +52,7 @@ object Sequences:
       @tailrec
       def _distinct[B](seq: Sequence[B], newSeq: Sequence[B]): Sequence[B] = seq match
         case Nil() => newSeq
-        case Cons(h, t) if !t.contains(h) => _distinct(t, newSeq.concat(Cons(h, Nil())))
+        case Cons(h, t) if !newSeq.contains(h) => _distinct(t, newSeq.concat(Cons(h, Nil())))
         case Cons(h, t) => _distinct(t, newSeq)
       _distinct(seq, Nil())
 
