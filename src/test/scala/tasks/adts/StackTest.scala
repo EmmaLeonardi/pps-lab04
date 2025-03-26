@@ -3,7 +3,8 @@ package tasks.adts
 import org.junit.*
 import org.junit.Assert.*
 import tasks.adts.Ex3Stacks.StackImpl
-import u03.Sequences.Sequence
+import u03.extensionmethods.Sequences.Sequence.*
+import u03.extensionmethods.Sequences.*
 import u03.Optionals.Optional
 
 /* Tests should be clear, but note they are expressed independently of the 
